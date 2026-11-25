@@ -1,0 +1,153 @@
+{
+  "eval_set_id": "vinyl_basics",
+  "name": "Vinyl crate basics",
+  "description": "Routing and tool use for the collection keeper. Schema-checked offline, not yet run against a live model.",
+  "eval_cases": [
+    {
+      "eval_id": "records_owned_album",
+      "conversation": [
+        {
+          "invocation_id": "records_owned_album-1",
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "I own Kind of Blue."
+              }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              {
+                "text": "Noted, you own Kind of Blue."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "transfer_to_agent",
+                "args": {
+                  "agent_name": "collection_keeper"
+                }
+              },
+              {
+                "name": "add_owned_album",
+                "args": {
+                  "album_id": "kind-of-blue"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "vinyl_crate_agents",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "lists_collection",
+      "conversation": [
+        {
+          "invocation_id": "lists_collection-1",
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "What records do I own?"
+              }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              {
+                "text": "You own Kind of Blue."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "transfer_to_agent",
+                "args": {
+                  "agent_name": "collection_keeper"
+                }
+              },
+              {
+                "name": "list_owned_albums",
+                "args": {}
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "vinyl_crate_agents",
+        "user_id": "eval_user",
+        "state": {
+          "owned_album_ids": [
+            "kind-of-blue"
+          ]
+        }
+      }
+    },
+    {
+      "eval_id": "recommends_by_genre",
+      "conversation": [
+        {
+          "invocation_id": "recommends_by_genre-1",
+          "user_content": {
+            "role": "user",
+            "parts": [
+              {
+                "text": "Recommend me some electronic music."
+              }
+            ]
+          },
+          "final_response": {
+            "role": "model",
+            "parts": [
+              {
+                "text": "Try Computer World by Kraftwerk (1981)."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "transfer_to_agent",
+                "args": {
+                  "agent_name": "recommender"
+                }
+              },
+              {
+                "name": "find_albums",
+                "args": {
+                  "genre": "electronic"
+                }
+              },
+              {
+                "name": "recommend_album",
+                "args": {
+                  "album_id": "computer-world"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "vinyl_crate_agents",
+        "user_id": "eval_user",
+        "state": {}
+      }
+    }
+  ]
+}
